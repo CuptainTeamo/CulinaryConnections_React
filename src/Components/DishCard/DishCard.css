@@ -1,4 +1,7 @@
 .dishCard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background: #fff;
     border-radius: 7px;
     box-shadow: 0 2px 5px #ccc;
@@ -12,4 +15,6 @@
 .dishCard img {
     height: 180px;
     width: auto;
+    border-radius: 20px;
+    margin-top: 10px;
 }
