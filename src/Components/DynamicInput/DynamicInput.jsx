@@ -1,11 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function DynamicInput(){
+function DynamicInput(props){
 
-    const [data,setData]=useState([{steps:""}]);
+    const [data,setData]=useState([""]);
+
+    useEffect(()=> {
+        if(props.steps) {
+            setData(props.steps);
+        }
+    }, [props.steps]);
 
     function handleClick(event){
-        setData([...data, {steps:""}]);
+        setData([...data, ""]);
 
         event.preventDefault();
     }
@@ -18,10 +24,13 @@ function DynamicInput(){
         event.preventDefault();
     }
 
-    function createInputBoxes(){
+    function createInputBoxes(step){
         return(
             <div>
-                <textarea placeholder="What to do next" />
+                <textarea 
+                    value={step ? step : ""}
+                    placeholder="What to do next" 
+                />
                 <button onClick={handleDelete}>Delete</button>
             </div>
         );

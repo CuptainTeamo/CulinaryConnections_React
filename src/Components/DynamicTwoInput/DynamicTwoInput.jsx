@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function DynamicTwoInput(){
+function DynamicTwoInput(props){
 
-    const [data,setData]=useState([{fname:"",lname:""}]);
+    const [data,setData]=useState([{ingredientName:"",quantity:"", unit:""}]);
+
+    useEffect(() => {
+        if (props.ingredients) {
+            setData(props.ingredients);
+        }
+    }, [props.ingredients]);
 
     function handleClick(event){
-        setData([...data, {fname:"",lname:""}]);
+        setData([...data, {ingredientName:"",quantity:"", unit:""}]);
 
         event.preventDefault();
     }
+
 
     function handleDelete(event,index){
         const deleteVal = [...data];
@@ -18,20 +25,20 @@ function DynamicTwoInput(){
         event.preventDefault();
     }
 
-    function createInputBoxes(){
+    function createInputBoxes(ingredient){
         return(
             <div>
-                <input placeholder="Ingredients Name" />
-                <input placeholder="Weight"/>
-                <select>
-                    <option value="">--Please choose an option--</option>
-                    <option value="recipe1">ml</option>
-                    <option value="recipe2">g</option>
-                    <option value="recipe3">kg</option>
-                    <option value="recipe4">Cup</option>
-                    <option value="recipe5">teaspoon</option>
-                    <option value="recipe6">tablespoon</option>
-                    <option value="recipe7">slice</option>
+                <input value={ingredient? ingredient.ingredientName : ""} placeholder="Ingredients Name" />
+                <input value={ingredient? ingredient.ingredientQuantity : ""} placeholder="Quantity"/>
+                <select value={ingredient? ingredient.unit : ""}>
+                    <option value="">--Please choose an unit--</option>
+                    <option value="ml">ml</option>
+                    <option value="g">g</option>
+                    <option value="kg">kg</option>
+                    <option value="Cup">Cup</option>
+                    <option value="teaspoon">teaspoon</option>
+                    <option value="tablespoon">tablespoon</option>
+                    <option value="slice">slice</option>
                 </select>
                 <button onClick={handleDelete}>Delete</button>
             </div>

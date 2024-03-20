@@ -1,8 +1,14 @@
 import "./UploadImage.css"
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-function UploadImage(){
+function UploadImage(props){
     const [file, setFile] = useState();
+
+    useEffect(()=>{
+        if(props.image){
+            setFile(props.image);
+        }
+    },[props.image]);
 
     function getFile(event){
         setFile(URL.createObjectURL(event.target.files[0]));
@@ -10,8 +16,8 @@ function UploadImage(){
     
     return(
         <div>
-            <input type="file" onChange={getFile}></input>
             <img className="uploadedImg" src={file} />
+            <input type="file" onChange={getFile}></input>
         </div>
     );
 }
