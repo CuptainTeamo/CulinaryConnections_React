@@ -23,6 +23,16 @@ function DynamicTwoInput(){
             <div>
                 <input placeholder="Ingredients Name" />
                 <input placeholder="Weight"/>
+                <select>
+                    <option value="">--Please choose an option--</option>
+                    <option value="recipe1">ml</option>
+                    <option value="recipe2">g</option>
+                    <option value="recipe3">kg</option>
+                    <option value="recipe4">Cup</option>
+                    <option value="recipe5">teaspoon</option>
+                    <option value="recipe6">tablespoon</option>
+                    <option value="recipe7">slice</option>
+                </select>
                 <button onClick={handleDelete}>Delete</button>
             </div>
         );

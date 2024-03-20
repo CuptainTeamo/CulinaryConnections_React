@@ -14,6 +14,7 @@ function createDishCards(dishItem){
 function RecipeInBook(){
     return(
         <div>
+            <h1>Recipes</h1>
             <Dropdown />
             {recipes.map(createDishCards)}
         </div>

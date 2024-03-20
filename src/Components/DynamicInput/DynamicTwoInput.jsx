@@ -21,7 +21,7 @@ function DynamicInput(){
     function createInputBoxes(){
         return(
             <div>
-                <input placeholder="What to do next" />
+                <textarea placeholder="What to do next" />
                 <button onClick={handleDelete}>Delete</button>
             </div>
         );

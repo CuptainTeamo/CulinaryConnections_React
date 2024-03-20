@@ -6,28 +6,34 @@ import UploadImage from "../UploadImage/UploadImage";
 
 function RecipeDetail(){
     return(
-        <div>
-            <h1>Add Recipe</h1>
+        <div className="form-container">
             <form>
-                <label>Dish Name</label>
-                <input 
-                    type="text"
-                    placeholder="Type the Dish Name"
-                />
-
-                <label>Description</label>
-                <input 
-                    type="text"
-                    placeholder="Type the Description"
-                />
-                <label>Ingredients</label>
-                <DynamicTwoInput />
-                <label>Steps</label>
-                <DynamicInput />
-                <label>Add Image</label>
-                <UploadImage />
-                <button type="submit">Save</button>
-                <button >Back</button>
+                <div className="inputs-wrapper">
+                    <div className="input-section">
+                        <label>Dish Name</label>
+                        <input 
+                            type="text"
+                            placeholder="Type the Dish Name"
+                        />
+                        <label>Description</label>
+                        <textarea 
+                            type="text"
+                            placeholder="Type the Description"
+                        />
+                        <label>Ingredients</label>
+                        <DynamicTwoInput />
+                        <label>Steps</label>
+                        <DynamicInput />
+                    </div>
+                    <div className="image-section">
+                        <label>Add Image</label>
+                        <UploadImage />
+                    </div>
+                </div>
+                <div className="form-actions">
+                    <button type="submit">Save</button>
+                    <button type="button">Back</button>
+                </div>
             </form>
         </div>
     );
