@@ -1,6 +1,7 @@
+import "./DynamicIngredientInput.css"
 import React, { useEffect, useState } from "react";
 
-function DynamicTwoInput(props){
+function DynamicIngredientInput(props){
 
     const [data,setData]=useState([{ingredientName:"",quantity:"", unit:""}]);
 
@@ -18,19 +19,37 @@ function DynamicTwoInput(props){
 
 
     function handleDelete(event,index){
+        event.preventDefault();
         const deleteVal = [...data];
         deleteVal.splice(index,1);
         setData(deleteVal);
-    
-        event.preventDefault();
     }
 
-    function createInputBoxes(ingredient){
+    function handleChange(event, index, field){
+        const newData = [...data];
+        newData[index] = {...newData[index], [field]: event.target.value};
+        setData(newData);
+    }
+
+    function createInputBoxes(ingredient, index){
         return(
-            <div>
-                <input value={ingredient? ingredient.ingredientName : ""} placeholder="Ingredients Name" />
-                <input value={ingredient? ingredient.ingredientQuantity : ""} placeholder="Quantity"/>
-                <select value={ingredient? ingredient.unit : ""}>
+            <div key={index}>
+                <input 
+                    value={ingredient? ingredient.ingredientName : ""} 
+                    onChange={e => handleChange(e, index, 'ingredientName')}
+                    placeholder="Ingredients Name" 
+                />
+                <input 
+                    className="quantityBox" 
+                    value={ingredient? ingredient.ingredientQuantity : ""} 
+                    onChange={e => handleChange(e, index, 'quantity')}
+                    placeholder="Quantity"
+                />
+                <select 
+                    className="unitBox" 
+                    value={ingredient? ingredient.unit : ""}
+                    onChange={e => handleChange(e, index, 'unit')}
+                >
                     <option value="">--Please choose an unit--</option>
                     <option value="ml">ml</option>
                     <option value="g">g</option>
@@ -40,7 +59,7 @@ function DynamicTwoInput(props){
                     <option value="tablespoon">tablespoon</option>
                     <option value="slice">slice</option>
                 </select>
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={(e) => handleDelete(e, index)}>Delete</button>
             </div>
         );
     }
@@ -55,4 +74,4 @@ function DynamicTwoInput(props){
     );
 }
 
-export default DynamicTwoInput;
+export default DynamicIngredientInput;

@@ -1,6 +1,7 @@
+import "./DynamicStepInputBox.css";
 import React, { useEffect, useState } from "react";
 
-function DynamicInput(props){
+function DynamicStepInputBox(props){
 
     const [data,setData]=useState([""]);
 
@@ -17,27 +18,33 @@ function DynamicInput(props){
     }
 
     function handleDelete(event,index){
+        event.preventDefault();
         const deleteVal = [...data];
         deleteVal.splice(index,1);
         setData(deleteVal);
-    
-        event.preventDefault();
     }
 
-    function createInputBoxes(step){
+    function handleChange(event, index){
+        const newData = [...data];
+        newData[index] = event.target.value;
+        setData(newData);
+    }
+
+    function createInputBoxes(step, index){
         return(
-            <div>
+            <div key={index}>
                 <textarea 
                     value={step ? step : ""}
+                    onChange={(e)=>handleChange(e, index)}
                     placeholder="What to do next" 
                 />
-                <button onClick={handleDelete}>Delete</button>
+                <button onClick={(e)=>handleDelete(e, index)}>Delete</button>
             </div>
         );
     }
 
     return(
-        <div>
+        <div className="stepInput">
            <button onClick={handleClick}>Add</button>
            <>
             {data.map(createInputBoxes)}
@@ -46,4 +53,4 @@ function DynamicInput(props){
     );
 }
 
-export default DynamicInput;
+export default DynamicStepInputBox;

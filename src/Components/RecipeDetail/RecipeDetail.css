@@ -3,6 +3,7 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
+    background-color:bisque;
 }
 
 form{
@@ -15,10 +16,17 @@ form{
     width: 100%;
     justify-content: space-between;
     gap: 20px;
+    
 }
 
 .input-section, .image-section {
     flex: 1;
+    background-color: aliceblue;
+    border-radius: 40px;
+}
+
+.innerWrap {
+    margin: 50px;
 }
 
 form label {

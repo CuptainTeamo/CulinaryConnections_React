@@ -13,7 +13,7 @@ function createDishCards(dishItem){
 
 function RecipeInBook(){
     return(
-        <div>
+        <div className="body">
             <h1>Recipes</h1>
             <Dropdown />
             {recipes.map(createDishCards)}

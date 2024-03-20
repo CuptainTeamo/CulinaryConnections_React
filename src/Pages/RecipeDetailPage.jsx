@@ -5,7 +5,7 @@ import Sandwich from "../Data/Sandwich";
 
 function RecipeDetailPage(){
     return(
-        <div>
+        <div className="body">
             <h1>Recipe Detail</h1>
             <Dropdown />
             <RecipeDetail recipe={Sandwich}/>
