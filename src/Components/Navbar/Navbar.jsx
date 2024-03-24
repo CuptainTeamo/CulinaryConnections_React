@@ -8,8 +8,11 @@ function Navbar(){
            <nav>
             <ul>
                 <li><Link to="/"><h1>Books</h1></Link></li>
-                <li><Link to="/AddRecipe"><h1>AddRecipe</h1></Link></li>
+                <li><Link to="/AddRecipe"><h1>Add Recipe</h1></Link></li>
                 <li><Link to="/RecipeDetail"><h1>Sandwich Recipe</h1></Link></li>
+                <li><Link to="/Searching"><h1>Search</h1></Link></li>
+            
+                
             </ul>
         </nav> 
         </header>
