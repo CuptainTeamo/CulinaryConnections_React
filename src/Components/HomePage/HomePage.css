@@ -6,6 +6,10 @@ body, html {
 
 .hero {
     background: #f0c3f4; 
+    background-image: url('../../../public/recipebook.jpg'); 
+    background-size: contain;
+    background-position: right center; 
+    background-repeat: no-repeat; 
     color: #fa5331; 
     text-align: left;
     position: relative;
