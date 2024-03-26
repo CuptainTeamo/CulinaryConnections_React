@@ -40,3 +40,7 @@
 .body {
   background-color: bisque;
 }
+
+.body h1{
+  margin-top: 0;
+}
