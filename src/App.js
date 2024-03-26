@@ -5,15 +5,23 @@ import RecipeInBook from './Pages/RecipeInBook';
 import AddRecipe from './Pages/AddRecipe';
 import RecipeDetailPage from './Pages/RecipeDetailPage';
 import { Route, Routes } from "react-router-dom";
+import SignupPage from './Pages/SignupPage';
+import CreateCookbookPage from './Pages/CreateCookbookPage';
+import CookbookProfile from './Components/CookbookProfile/CookbookProfile';
+import HomePage from './Components/HomePage/HomePage';
 
 function App() {
   return (
     <div>
       <Navbar />
       <Routes>
-      <Route path="/" element={<RecipeInBook />} />
+      <Route path='/' element={<HomePage />}/>
+      <Route path='/Signup' element={<SignupPage />}/>
+      <Route path='/CreateCookbook' element={<CreateCookbookPage />}/>
+      <Route path="/Book" element={<RecipeInBook />} />
       <Route path="/AddRecipe" element={<AddRecipe />} />
       <Route path="/RecipeDetail" element={<RecipeDetailPage />} />
+      <Route path="/CookbookProfile" element={<CookbookProfile />} />
     </Routes>
     </div>
     
