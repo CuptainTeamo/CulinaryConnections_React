@@ -4,6 +4,7 @@ import Navbar from './Components/Navbar/Navbar';
 import RecipeInBook from './Pages/RecipeInBook';
 import AddRecipe from './Pages/AddRecipe';
 import RecipeDetailPage from './Pages/RecipeDetailPage';
+import SearchRecipe  from './Pages/SearchByIngredient';
 import { Route, Routes } from "react-router-dom";
 import SignupPage from './Pages/SignupPage';
 import CreateCookbookPage from './Pages/CreateCookbookPage';
@@ -21,9 +22,12 @@ function App() {
       <Route path="/Book" element={<RecipeInBook />} />
       <Route path="/AddRecipe" element={<AddRecipe />} />
       <Route path="/RecipeDetail" element={<RecipeDetailPage />} />
+      <Route path="/Searching" element={<SearchRecipe/>}/>
       <Route path="/CookbookProfile" element={<CookbookProfile />} />
     </Routes>
     </div>
+
+    
     
   );
 }
