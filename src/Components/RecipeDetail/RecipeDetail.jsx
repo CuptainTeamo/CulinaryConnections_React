@@ -14,19 +14,19 @@ function RecipeDetail(props){
                             <label>Dish Name</label>
                             <input 
                                 type="text"
-                                value={props.recipe ?props.recipe.dishName : ""}
+                                value={props.recipe ?props.recipe.RecipeName : ""}
                                 placeholder="Type the Dish Name"
                             />
                             <label>Description</label>
                             <textarea 
                                 type="text"
-                                value={props.recipe ?props.recipe.description : ""}
+                                value={props.recipe ?props.recipe.Description : ""}
                                 placeholder="Type the Description"
                             />
                             <label>Ingredients</label>
-                            <DynamicTwoInput ingredients={props.recipe ? props.recipe.Ingredients : null}/>
+                            <DynamicTwoInput ingredients={props.recipe ? props.recipe.RecipeIngredients : null}/>
                             <label>Steps</label>
-                            <DynamicInput steps={props.recipe ? props.recipe.steps : null}/>
+                            <DynamicInput steps={props.recipe ? props.recipe.Steps : null}/>
                         </div>
                     </div>
                     <div className="image-section">

@@ -35,13 +35,13 @@ function DynamicIngredientInput(props){
         return(
             <div key={index}>
                 <input 
-                    value={ingredient? ingredient.ingredientName : ""} 
+                    value={ingredient? ingredient.Ingredient : ""} 
                     onChange={e => handleChange(e, index, 'ingredientName')}
                     placeholder="Ingredients Name" 
                 />
                 <input 
                     className="quantityBox" 
-                    value={ingredient? ingredient.ingredientQuantity : ""} 
+                    value={ingredient? ingredient.Qty : ""} 
                     onChange={e => handleChange(e, index, 'quantity')}
                     placeholder="Quantity"
                 />

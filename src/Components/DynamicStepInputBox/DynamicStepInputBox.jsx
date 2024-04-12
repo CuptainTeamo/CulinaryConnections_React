@@ -30,11 +30,11 @@ function DynamicStepInputBox(props){
         setData(newData);
     }
 
-    function createInputBoxes(step, index){
+    function createInputBoxes(stepObj, index){
         return(
             <div key={index}>
                 <textarea 
-                    value={step ? step : ""}
+                    value={stepObj ? stepObj.StepContent : ""}
                     onChange={(e)=>handleChange(e, index)}
                     placeholder="What to do next" 
                 />
