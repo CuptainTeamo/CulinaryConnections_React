@@ -55,17 +55,18 @@ function DynamicIngredientInput({ ingredients, setIngredients }){
                 />
                 <select 
                     className="unitBox" 
-                    value={ingredient? ingredient.unit : ""}
+                    value={ingredient? ingredient.Unit : ""}
                     onChange={e => handleChange(e, index, 'unit')}
                 >
                     <option value="">--Please choose an unit--</option>
-                    <option value="ml">ml</option>
-                    <option value="g">g</option>
-                    <option value="kg">kg</option>
+                    <option value="Table_Spoon">Table Spoon</option>
+                    <option value="Tea_Spoon">Tea Spoon</option>
                     <option value="Cup">Cup</option>
-                    <option value="teaspoon">teaspoon</option>
-                    <option value="tablespoon">tablespoon</option>
-                    <option value="slice">slice</option>
+                    <option value="Kg">Kg</option>
+                    <option value="Lbs">Lbs</option>
+                    <option value="mL">mL</option>
+                    <option value="Full">Full</option>
+                    <option value="g">g</option>
                 </select>
                 <button onClick={(e) => handleDelete(e, index)}>Delete</button>
             </div>

@@ -6,8 +6,8 @@ import React, { useEffect, useState } from "react";
 //    imageFile: null
 //}
 
-function UploadImage({ setImage }){
-    const[imageSrc, setImageSrc] = useState('');
+function UploadImage({ imageData, setImageData, setImage }){
+    // const[imageSrc, setImageSrc] = useState('');
     //const [file, setFile] = useState(initialFieldValues);
 
     //useEffect(()=>{
@@ -21,7 +21,7 @@ function UploadImage({ setImage }){
             const imageFile = e.target.files[0];
             const reader = new FileReader();
             reader.onload = x =>{
-                setImageSrc(x.target.result);
+                setImageData(x.target.result);
                 setImage(imageFile);
                 console.log(imageFile);
                 //setFile({
@@ -32,7 +32,7 @@ function UploadImage({ setImage }){
             reader.readAsDataURL(imageFile);
         }
         else{
-            setImageSrc('');
+            setImageData('');
             setImage(null); 
         }
         // setFile(URL.createObjectURL(event.target.files[0]));
@@ -40,7 +40,7 @@ function UploadImage({ setImage }){
     
     return(
         <div>
-            {imageSrc && <img className="uploadedImg" src={imageSrc} />}
+            {imageData && <img className="uploadedImg" src={imageData} />}
             <input type="file" accept="image/*" onChange={showPreview}></input>
         </div>
     );
