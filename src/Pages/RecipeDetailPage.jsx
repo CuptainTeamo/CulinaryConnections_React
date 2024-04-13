@@ -10,7 +10,7 @@ function RecipeDetailPage(){
     useEffect(() => {
         const fetchRecipe = async () =>{
             try{
-                const recipeId = 7;
+                const recipeId = 1;
                 const url = `${urls.recipe.GetByID}id?id=${recipeId}`;
                 const response = await fetch(url);
 
@@ -20,7 +20,7 @@ function RecipeDetailPage(){
 
                 const data = await response.json();
                 setRecipe(data);
-                console.log(data);
+                // console.log(data);
             }catch (error) {
                 console.error('Error fetching data: ', error);
             }

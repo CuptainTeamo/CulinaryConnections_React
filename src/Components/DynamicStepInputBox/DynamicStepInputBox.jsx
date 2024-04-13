@@ -1,40 +1,44 @@
 import "./DynamicStepInputBox.css";
 import React, { useEffect, useState } from "react";
 
-function DynamicStepInputBox(props){
+// function DynamicStepInputBox(props){
+function DynamicStepInputBox({steps, setSteps}){
 
-    const [data,setData]=useState([""]);
+    // const [data,setData]=useState([""]);
 
-    useEffect(()=> {
-        if(props.steps) {
-            setData(props.steps);
-        }
-    }, [props.steps]);
+    //useEffect(()=> {
+    //    if(props.steps) {
+    //        setData(props.steps);
+    //    }
+    //}, [props.steps]);
 
     function handleClick(event){
-        setData([...data, ""]);
-
         event.preventDefault();
+
+        const newSteps = [...steps, ""];
+        setSteps(newSteps);
+        //setData([...data, ""]);
+
     }
 
     function handleDelete(event,index){
         event.preventDefault();
-        const deleteVal = [...data];
+        const deleteVal = [...steps];
         deleteVal.splice(index,1);
-        setData(deleteVal);
+        setSteps(deleteVal);
     }
 
     function handleChange(event, index){
-        const newData = [...data];
-        newData[index] = event.target.value;
-        setData(newData);
+        const newSteps = [...steps];
+        newSteps[index] = event.target.value;
+        setSteps(newSteps);
     }
 
-    function createInputBoxes(stepObj, index){
+    function createInputBoxes(step, index){
         return(
             <div key={index}>
                 <textarea 
-                    value={stepObj ? stepObj.StepContent : ""}
+                    value={step ? step.StepContent : ""}
                     onChange={(e)=>handleChange(e, index)}
                     placeholder="What to do next" 
                 />
@@ -47,7 +51,7 @@ function DynamicStepInputBox(props){
         <div className="stepInput">
            <button onClick={handleClick}>Add</button>
            <>
-            {data.map(createInputBoxes)}
+            {steps && steps.map(createInputBoxes)}
            </> 
         </div>
     );
