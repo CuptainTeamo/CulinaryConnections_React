@@ -39,20 +39,27 @@ const IngredientSelector: React.FC<{ onSelectionChange: (selectedIds: number[]) 
 
     return (
         <div>
-            <h3>Select Ingredients:</h3>
+            <h3 className="header3">Select Ingredients</h3>
+            <div className="ingredientGrid">
             {ingredientsData.map(ingredient => (
-                <div key={ingredient.Id}>
-                    <label>
-                        <input
-                            type="checkbox"
-                            value={ingredient.Id}
-                            checked={selectedIngredients.includes(ingredient.Id)}
-                            onChange={event => handleCheckboxChange(event, ingredient.Id)}
-                        />
+                <div className="ingredientDisplay" key={ingredient.Id}>
+                    <div  >
+                        <label>
                         {ingredient.Name}
-                    </label>
+                        </label>
+                    </div>
+                    
+                        <input className="check-style"
+                        type="checkbox"
+                        value={ingredient.Id}
+                        checked={selectedIngredients.includes(ingredient.Id)}
+                        onChange={event => handleCheckboxChange(event, ingredient.Id)}
+                        />                    
+                    
                 </div>
             ))}
+            </div>
+            
             <button onClick={() => onSelectionChange(selectedIngredients)}>Search</button>
         </div>
     );

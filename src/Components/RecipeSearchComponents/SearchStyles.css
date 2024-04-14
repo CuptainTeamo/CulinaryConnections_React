@@ -1,0 +1,89 @@
+.ratingDisplay{
+    display: grid;
+    grid-template-rows: 150px 30px;
+    border: solid;
+    border-width: 2.5px;
+    border-radius: 16px;
+    border-color: #BB3D65;
+    box-shadow: 2px 4px 1px #E1ABD5;
+    width: 185px;
+    height: 190px;
+    margin-bottom: 20px;
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    background-color: bisque;
+}
+
+.ratingGrid{
+    display : grid;
+    grid-template-columns: 200px 200px 200px;
+
+}
+
+.ingredientGrid{
+    display : grid;
+    grid-template-columns: 190px 190px 190px;
+    align-items: center;
+
+}
+
+.ingredientDisplay{
+    display: grid; 
+    grid-template-rows: 95px, 95px; 
+    border: solid;
+    border-width: 2.5px;
+    border-radius: 16px;
+    border-color:  #E1ABD5;
+    box-shadow: 2px 4px 1px #BB3D65;
+    width: 175px;
+    height: 115px;
+    margin-bottom: 10px;
+    align-items: center;
+    background-color: bisque;
+    align-items: center; /* Vertically center items */
+    justify-content: center; /* Horizontally center items */
+    font-family: "McLaren", cursive;
+}
+
+.ratingGrid{
+    display : grid;
+    grid-template-columns: 200px 200px 200px;
+
+}
+
+.wrapperT {
+    /* display: flex; */
+    /* justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: thin; */
+    background-size: contain;
+    background-position: right center; 
+    background-repeat: no-repeat; 
+    background-color: #f0c3f4;
+   
+}
+
+.header1{
+    font-family: "McLaren", cursive;
+    font-weight: 200;
+}
+
+.header3{
+    font-family: "McLaren", cursive;
+    font-weight: 150;
+}
+
+.check-style{
+    /* appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none; */
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+}
+
+.check-style:checked{
+    border: 2px solid #dfbb8c;
+    background-color: #dfbb8c;
+}

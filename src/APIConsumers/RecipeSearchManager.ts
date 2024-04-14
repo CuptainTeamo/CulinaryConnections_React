@@ -30,6 +30,23 @@ const recipes_f: RecipeSearchDTO[] = [recipe1, recipe2];
 
 
 class RecipeSearchManager implements IRecipeSearchService{
+    async searchRecipeByRating(selectedRating: number): Promise<RecipeSearchDTO[]> {
+        try{
+            const ratingVal = selectedRating;
+            const respone = await axios.get(`https://localhost:7155/api/Searching/GetAllRecipesByRating/rating?rating=${ratingVal}`);
+            if(respone.status == 200){
+                return respone.data
+            }
+            else{
+                console.log("API Enpoint Inactive");
+                return recipes_f;
+            }
+        }
+        catch(ex){
+            console.log('Error:', ex.message);
+            return recipes_f;
+        }
+    }
     async searchRecipeByIngredients(selectedIngredients: number[]): Promise<RecipeSearchDTO[]> {
         
         try{
