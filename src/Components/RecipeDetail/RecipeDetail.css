@@ -47,3 +47,10 @@ form label {
 textarea {
     width: 80%;
 }
+
+.error-message {
+    color: red;
+    display: block;
+    margin-top: 5px;
+    font-size: 14px;
+}

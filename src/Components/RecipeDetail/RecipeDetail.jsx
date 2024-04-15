@@ -4,6 +4,7 @@ import DynamicTwoInput from "../DynamicIngredientInput/DynamicIngredientInput";
 import DynamicInput from "../DynamicStepInputBox/DynamicStepInputBox";
 import UploadImage from "../UploadImage/UploadImage";
 import urls from "../../Data/URL";
+import { useNavigate } from "react-router-dom";
 
 function convertBase64ToFile(imageBase64, filename) {
     const arr = imageBase64.split(',');
@@ -20,6 +21,8 @@ function convertBase64ToFile(imageBase64, filename) {
 }
 
 function RecipeDetail(props){
+    const navigate = useNavigate();
+
     const [id, setId] = useState(0);
     const [ownerId, setOwnerId] = useState(0);
     const [groupId, setGroupId] = useState(0);
@@ -30,6 +33,8 @@ function RecipeDetail(props){
     const [steps, setSteps] = useState(props.recipe ? props.recipe.Steps : []);
     const [imageFile, setImageFile] = useState(null);
     const [imageSrc, setImageSrc] = useState('');
+
+    const [errors, setErrors] = useState({});
 
     useEffect(()=>{
         if(props.recipe){
@@ -62,6 +67,10 @@ function RecipeDetail(props){
 
     const handleDescriptionChange = (event) => {
         setDescription(event.target.value);
+    };
+
+    const handleRatingChange = (event) => {
+        setRating(event.target.value);
     };
 
     const handleSubmit = async (e) => {
@@ -98,18 +107,70 @@ function RecipeDetail(props){
 
 
 
-console.log(formData.values);
-        await sendRecipeData(formData);
+        console.log(formData.values);
+        // validate the data
+        const validationErrors = {}
+        if(!formData.get('Name').trim()){
+            validationErrors.dishName = "* Dish Name is required."
+        }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get('Name'))){
+            validationErrors.dishName = "* Dish Name can only contains letters, numbers and '_', '-', '!'."
+        }
+
+        if(!formData.get('Rating').trim()){
+            validationErrors.rating = "* Rating is required."
+        }else if(!/^(?:10(?:\.0+)?|[0-9](?:\.\d+)?)$$/.test(formData.get('Rating'))){
+            validationErrors.rating = "* Rating can only be numbers from 0 - 10."
+        }
+
+        if(!formData.get('Description').trim()){
+            validationErrors.description = "* Description is required."
+        }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get('Description'))){
+            validationErrors.description = "* Description can only contains letters, numbers and '_', '-', '!'."
+        }
+
+        ingredients.forEach((ingredient, index) => {
+            var test = formData.get(`Ingredients[${index}].name`);
+            if(!formData.get(`Ingredients[${index}].name`).trim() || !(formData.get(`Ingredients[${index}].name`) === undefined)){
+                validationErrors.ingredientName = "* Ingredient Name is required."
+            }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get(`Ingredients[${index}].name`))){
+                validationErrors.ingredientName = "* Ingredient Name can only contains letters, numbers and '_', '-', '!'."
+            }
+
+            if(!formData.get(`Ingredients[${index}].qty`).trim() || !(formData.get(`Ingredients[${index}].qty`) === undefined)){
+                validationErrors.ingredientQty = "* Ingredient Quantity is required."
+            }else if(!/^\d+(\.\d+)?$/.test(formData.get(`Ingredients[${index}].qty`))){
+                validationErrors.ingredientQty = "* Ingredient Quantity can only be numbers larger than 0."
+            }
+
+            if(!formData.get(`Ingredients[${index}].unit`).trim() || !(formData.get(`Ingredients[${index}].unit`) === undefined)){
+                validationErrors.ingredientUnit = "* Ingredient Unit is required."
+            }
+        });
+
+        steps.forEach((step, index) => {
+            if(!formData.get(`Steps[${index}].StepContent`).trim() || !(formData.get(`Steps[${index}].StepContent`) === undefined)){
+                validationErrors.step = "* Step is required."
+            }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get(`Steps[${index}].StepContent`))){
+                validationErrors.step = "* Step content can only contains letters, numbers and '_', '-', '!'."
+            }
+        });
+
+        setErrors(validationErrors);
+        if(Object.keys(validationErrors).length === 0){
+            await sendRecipeData(formData);
+        }
+        
     }
 
     async function sendRecipeData(formData){
+        
         try{
             const response = await fetch(urls.recipe.Update, {
                 method: 'PUT',
                 body: formData,
             });
             if (response.ok) {
-                console.log('Recipe submitted successfully');
+                navigate("/Book");
             } else {
                 throw new Error('Failed to submit recipe');
             }
@@ -131,6 +192,7 @@ console.log(formData.values);
                                 value={dishName}
                                 placeholder="Type the Dish Name"
                             />
+                            {errors.dishName && <span className="error-message">{errors.dishName}</span>}
                             <label>Description</label>
                             <textarea 
                                 type="text"
@@ -138,16 +200,29 @@ console.log(formData.values);
                                 value={description}
                                 placeholder="Type the Description"
                             />
+                            {errors.description && <span className="error-message">{errors.description}</span>}
+                            <label>Rating</label>
+                            <input 
+                                type="text"
+                                onChange={handleRatingChange}
+                                value={rating}
+                                placeholder="Type the rating 1-10"
+                            />
+                            {errors.rating && <span className="error-message">{errors.rating}</span>}
                             <label>Ingredients</label>
                             <DynamicTwoInput 
                                 ingredients={ingredients}
                                 setIngredients={setIngredients}
                             />
+                            {errors.ingredientName && <span className="error-message">{errors.ingredientName}</span>}
+                            {errors.ingredientQty && <span className="error-message">{errors.ingredientQty}</span>}
+                            {errors.ingredientUnit && <span className="error-message">{errors.ingredientUnit}</span>}
                             <label>Steps</label>
                             <DynamicInput 
                                 steps={steps}
                                 setSteps={setSteps}
                             />
+                            {errors.step && <span className="error-message">{errors.step}</span>}
                         </div>
                     </div>
                     <div className="image-section">

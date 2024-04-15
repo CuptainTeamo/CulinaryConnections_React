@@ -26,9 +26,6 @@ function App() {
       <Route path="/CookbookProfile" element={<CookbookProfile />} />
     </Routes>
     </div>
-
-    
-    
   );
 }
 
