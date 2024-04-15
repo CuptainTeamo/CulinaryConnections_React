@@ -124,10 +124,10 @@ function RecipeDetail(props){
 
         if(!formData.get('Description').trim()){
             validationErrors.description = "* Description is required."
-        }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get('Description'))){
+        }else if(!/^[A-Za-z0-9\s_!,.-]+$/.test(formData.get('Description'))){
             validationErrors.description = "* Description can only contains letters, numbers and '_', '-', '!'."
         }
-
+/*
         ingredients.forEach((ingredient, index) => {
             var test = formData.get(`Ingredients[${index}].name`);
             if(!formData.get(`Ingredients[${index}].name`).trim() || !(formData.get(`Ingredients[${index}].name`) === undefined)){
@@ -154,6 +154,7 @@ function RecipeDetail(props){
                 validationErrors.step = "* Step content can only contains letters, numbers and '_', '-', '!'."
             }
         });
+        */
 
         setErrors(validationErrors);
         if(Object.keys(validationErrors).length === 0){
@@ -161,6 +162,7 @@ function RecipeDetail(props){
         }
         
     }
+    
 
     async function sendRecipeData(formData){
         
