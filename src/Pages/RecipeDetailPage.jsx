@@ -3,14 +3,16 @@ import Dropdown from "../Components/Dropdown/Dropdown";
 import RecipeDetail from "../Components/RecipeDetail/RecipeDetail";
 import Sandwich from "../Data/Sandwich";
 import urls from "../Data/URL";
+import { useParams } from "react-router-dom";
 
 function RecipeDetailPage(){
     const [recipe, setRecipe] = useState(null);
+    const {id} = useParams();
 
     useEffect(() => {
         const fetchRecipe = async () =>{
             try{
-                const recipeId = 1;
+                const recipeId = id? id: 1;
                 const url = `${urls.recipe.GetByID}id?id=${recipeId}`;
                 const response = await fetch(url);
 

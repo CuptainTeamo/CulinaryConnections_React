@@ -24,6 +24,8 @@ function App() {
       <Route path="/RecipeDetail" element={<RecipeDetailPage />} />
       <Route path="/Searching" element={<SearchRecipe/>}/>
       <Route path="/CookbookProfile" element={<CookbookProfile />} />
+
+      <Route path="/RecipeDetail/:id" element={<RecipeDetailPage />} />
     </Routes>
     </div>
   );

@@ -10,6 +10,13 @@
     margin: 16px;
     float: left;
     text-align: left;
+    height: 450px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.dishCard:hover{
+    transform: scale(1.05);
 }
 
 .dishCard img {
