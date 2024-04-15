@@ -38,8 +38,9 @@
 }
 
 .body {
-  margin-top: 0;
+  margin-top: 10vh;
   background-color: bisque;
+  height: 100vh;
 }
 
 
