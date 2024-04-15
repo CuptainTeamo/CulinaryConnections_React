@@ -12,7 +12,7 @@ function RecipeDetailPage(){
     useEffect(() => {
         const fetchRecipe = async () =>{
             try{
-                const recipeId = id? id: 1;
+                const recipeId = id? id: 8;
                 const url = `${urls.recipe.GetByID}id?id=${recipeId}`;
                 const response = await fetch(url);
 

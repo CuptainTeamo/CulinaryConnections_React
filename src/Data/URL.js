@@ -4,7 +4,8 @@ const urls = {
     recipe:{
         GetByGroupID: API_URL + '/Recipe/GetRecipeByGroupID/',
         GetByID: API_URL + '/Recipe/GetRecipeToUpdateByID/',
-        Update: API_URL + '/Recipe/UpdateRecipe/UpdateRecipe'
+        Update: API_URL + '/Recipe/UpdateRecipe/UpdateRecipe',
+        DeleteById: API_URL + '/Recipe/DeleteRecipeByID'
     },
     searching:{
 
