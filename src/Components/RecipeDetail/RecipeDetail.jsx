@@ -162,7 +162,6 @@ function RecipeDetail(props){
         }
         
     }
-    
 
     async function sendRecipeData(formData){
         
@@ -178,6 +177,32 @@ function RecipeDetail(props){
             }
         }catch(error){
             console.error('Error submitting recipe: ', error);
+        }
+    }
+
+    
+    const handleDelete = async (e) => {
+        e.preventDefault();
+        const confirmDelete = window.confirm("Are you sure you want to delete this recipe?");
+
+        if(confirmDelete){
+            // delete the record and return to book view page
+            try{
+                const url = urls.recipe.DeleteById + `?id=${id}`;
+                const response = await fetch(url, {
+                    method: 'DELETE'
+                });
+
+                if(response.ok){
+                    navigate("/Book");
+                }else {
+                    alert("Failed to delete recipe.");
+                  }
+            }catch (error) {
+                console.error("There was an error deleting the recipe:", error);
+                alert("There was an error deleting the recipe.");
+            }
+
         }
     }
 
@@ -241,7 +266,7 @@ function RecipeDetail(props){
                 </div>
                 <div className="form-actions">
                     <button type="submit">{props.recipe ? "Edit" : "Save"}</button>
-                    <button type="button">{props.recipe ? "Delete" : "Back"}</button>
+                    {props.recipe && <button type="button" className="deleteButton" onClick={handleDelete}>Delete</button>}
                 </div>
             </form>
         </div>
