@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
 
 function createDishCards(dishItem){
     return <DishCard 
-        image = {dishItem.img}
+        image = {dishItem.ImageData}
         id = {dishItem.Id}
         title = {dishItem.RecipeName}
         description = {dishItem.RecipeDescription}
@@ -47,7 +47,8 @@ function RecipeInBook(){
             <h1>Recipes</h1>
             <Dropdown />
             {books && books.map(createDishCards)}
-            {!books && recipes.map(createDishCards)}
+            
+            
         </div>
     );
 }

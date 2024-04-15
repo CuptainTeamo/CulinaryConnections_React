@@ -26,7 +26,7 @@ function RecipeDetail(props){
     const [id, setId] = useState(0);
     const [ownerId, setOwnerId] = useState(0);
     const [groupId, setGroupId] = useState(0);
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(null);
     const [dishName, setDishName] = useState(props.recipe ? props.recipe.RecipeName : "");
     const [description, setDescription] = useState(props.recipe ? props.recipe.Description : "");
     const [ingredients, setIngredients] = useState(props.recipe ? props.recipe.RecipeIngredients : []);
@@ -118,16 +118,16 @@ function RecipeDetail(props){
 
         if(!formData.get('Rating').trim()){
             validationErrors.rating = "* Rating is required."
-        }else if(!/^(?:10(?:\.0+)?|[0-9](?:\.\d+)?)$$/.test(formData.get('Rating'))){
-            validationErrors.rating = "* Rating can only be numbers from 0 - 10."
+        }else if(!/^[1-5]$/.test(formData.get('Rating'))){
+            validationErrors.rating = "* Rating can only be integer numbers from 1 - 5."
         }
 
         if(!formData.get('Description').trim()){
             validationErrors.description = "* Description is required."
-        }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get('Description'))){
+        }else if(!/^[A-Za-z0-9\s_!,.-]+$/.test(formData.get('Description'))){
             validationErrors.description = "* Description can only contains letters, numbers and '_', '-', '!'."
         }
-
+/*
         ingredients.forEach((ingredient, index) => {
             var test = formData.get(`Ingredients[${index}].name`);
             if(!formData.get(`Ingredients[${index}].name`).trim() || !(formData.get(`Ingredients[${index}].name`) === undefined)){
@@ -154,6 +154,7 @@ function RecipeDetail(props){
                 validationErrors.step = "* Step content can only contains letters, numbers and '_', '-', '!'."
             }
         });
+        */
 
         setErrors(validationErrors);
         if(Object.keys(validationErrors).length === 0){
@@ -161,6 +162,7 @@ function RecipeDetail(props){
         }
         
     }
+    
 
     async function sendRecipeData(formData){
         
@@ -206,7 +208,7 @@ function RecipeDetail(props){
                                 type="text"
                                 onChange={handleRatingChange}
                                 value={rating}
-                                placeholder="Type the rating 1-10"
+                                placeholder="Type the rating 1-5"
                             />
                             {errors.rating && <span className="error-message">{errors.rating}</span>}
                             <label>Ingredients</label>
