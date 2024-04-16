@@ -8,6 +8,8 @@ import { useParams } from "react-router-dom";
 function RecipeDetailPage(){
     const [bookId, setBookId] = useState();
     const [recipe, setRecipe] = useState(null);
+    const [data, setData] = useState(null);
+    const [books, setBooks] = useState(null);
     const {id} = useParams();
 
     useEffect(() => {
@@ -30,7 +32,33 @@ function RecipeDetailPage(){
             }
         };
 
+        const fetchBooks = async () =>{
+            // fetch the data first
+            const url = urls.recipe.GetBookView;
+            const response = await fetch(url);
+            console.log(url);
+            if(!response.ok){
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            const data = await response.json();
+            setData(data);
+
+            // set the books
+            if(data.Books){
+                if(!bookId){
+                    if(data.Books.length > 0 && data.Books[0].Id != null){
+                        setBookId(data.Books[0].Id);
+                    }
+                }
+                setBooks(data.Books.map(singleBook => ({
+                    bookId : singleBook.Id,
+                    bookTitle: singleBook.Title
+                })));
+            }
+        }
+        
         fetchRecipe();
+        fetchBooks();
     }, []);
     return(
         <div className="body">
@@ -38,6 +66,7 @@ function RecipeDetailPage(){
             <Dropdown 
                 bookId = {bookId} 
                 setBookId = {setBookId}
+                books = {books}
             />
             <RecipeDetail recipe={recipe}/>
         </div>

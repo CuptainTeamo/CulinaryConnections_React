@@ -37,14 +37,16 @@ function RecipeInBook(){
             // set the books
             if(data.Books){
                 if(!bookId){
-                    setBookId(data.Books[0].Id);
+                    if(data.Books.length > 0 && data.Books[0].Id != null){
+                        setBookId(data.Books[0].Id);
+                    }
                 }
                 setBooks(data.Books.map(singleBook => ({
                     bookId : singleBook.Id,
                     bookTitle: singleBook.Title
                 })));
 
-                const selectedBook = data.Books.find(book => bookId === bookId);
+                const selectedBook = data.Books.find(book => book.bookId === bookId);
                 if(selectedBook){
                     setRecipes(selectedBook.Recipes);
                 }
