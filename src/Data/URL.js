@@ -1,4 +1,4 @@
-const API_URL="https://localhost:44307/api";
+const API_URL="https://localhost:7155/api";
 
 const urls = {
     recipe:{

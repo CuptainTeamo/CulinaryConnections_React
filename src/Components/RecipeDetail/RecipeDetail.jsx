@@ -20,12 +20,23 @@ function convertBase64ToFile(imageBase64, filename) {
     return new File([u8arr], filename, { type: mime });
 }
 
+const UnitMappings = {
+    "Table_Spoon" : 1,
+    "Tea_Spoon": 2, 
+    "Cup" : 3,
+    "Kg" : 4,
+    "Lbs" : 5,
+    "mL" : 6,
+    "Full" : 7,
+    "g" : 8,
+}
+
 function RecipeDetail(props){
     const navigate = useNavigate();
 
     const [id, setId] = useState(0);
     const [ownerId, setOwnerId] = useState(0);
-    const [groupId, setGroupId] = useState(0);
+    const [groupId, setGroupId] = useState(props.bookId? props.bookId : 0);
     const [rating, setRating] = useState(null);
     const [dishName, setDishName] = useState(props.recipe ? props.recipe.RecipeName : "");
     const [description, setDescription] = useState(props.recipe ? props.recipe.Description : "");
@@ -51,13 +62,19 @@ function RecipeDetail(props){
                 // store in imagesrc
                 setImageSrc(props.recipe.ImageBase64);
                 // convert to file
+                const fileImage = convertBase64ToFile(props.recipe.ImageBase64, "oldImage");
                 setImageFile(convertBase64ToFile(props.recipe.ImageBase64, "oldImage"))
 
             }
-            setImageFile();
 
         }
     }, [props.recipe])
+
+    useEffect(()=>{
+        if(props.bookId){
+            setGroupId(props.bookId);
+        }
+    }, [props.bookId])
 
     // console.log(props);
 
@@ -81,14 +98,17 @@ function RecipeDetail(props){
         formData.append('OwnerId', ownerId.toString());
         formData.append('GroupId', groupId.toString());
         formData.append('Name', dishName);
-        formData.append('Rating', rating.toString());
+        if(rating != null){
+            formData.append('Rating', rating.toString());
+        }
         formData.append('Description', description);
         formData.append('Created', new Date().toISOString());
 
     
         steps.forEach((step, index) => {
             formData.append(`Steps[${index}].id`, '0');
-            formData.append(`Steps[${index}].StepContent`, step.stepContent);
+            const content = step.StepContent ? step.StepContent : step;
+            formData.append(`Steps[${index}].StepContent`, content);
         });
 
     
@@ -96,7 +116,9 @@ function RecipeDetail(props){
             formData.append(`Ingredients[${index}].id`, '0');
             formData.append(`Ingredients[${index}].name`, ingredient.Ingredient);
             formData.append(`Ingredients[${index}].qty`, ingredient.Qty);
-            formData.append(`Ingredients[${index}].unit`, ingredient.Unit);
+            const unityString = ingredient.Unit;
+            const unitValue = UnitMappings[unityString];
+            formData.append(`Ingredients[${index}].unit`, unitValue);
         });
 
         
@@ -127,34 +149,33 @@ function RecipeDetail(props){
         }else if(!/^[A-Za-z0-9\s_!,.-]+$/.test(formData.get('Description'))){
             validationErrors.description = "* Description can only contains letters, numbers and '_', '-', '!'."
         }
-/*
+
         ingredients.forEach((ingredient, index) => {
             var test = formData.get(`Ingredients[${index}].name`);
-            if(!formData.get(`Ingredients[${index}].name`).trim() || !(formData.get(`Ingredients[${index}].name`) === undefined)){
+            if((!formData.get(`Ingredients[${index}].name`).trim()) || ((formData.get(`Ingredients[${index}].name`) === undefined))){
                 validationErrors.ingredientName = "* Ingredient Name is required."
             }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get(`Ingredients[${index}].name`))){
                 validationErrors.ingredientName = "* Ingredient Name can only contains letters, numbers and '_', '-', '!'."
             }
 
-            if(!formData.get(`Ingredients[${index}].qty`).trim() || !(formData.get(`Ingredients[${index}].qty`) === undefined)){
+            if(!formData.get(`Ingredients[${index}].qty`).trim() || (formData.get(`Ingredients[${index}].qty`) === undefined)){
                 validationErrors.ingredientQty = "* Ingredient Quantity is required."
             }else if(!/^\d+(\.\d+)?$/.test(formData.get(`Ingredients[${index}].qty`))){
                 validationErrors.ingredientQty = "* Ingredient Quantity can only be numbers larger than 0."
             }
 
-            if(!formData.get(`Ingredients[${index}].unit`).trim() || !(formData.get(`Ingredients[${index}].unit`) === undefined)){
+            if(!formData.get(`Ingredients[${index}].unit`).trim() || (formData.get(`Ingredients[${index}].unit`) === undefined)){
                 validationErrors.ingredientUnit = "* Ingredient Unit is required."
             }
         });
 
         steps.forEach((step, index) => {
-            if(!formData.get(`Steps[${index}].StepContent`).trim() || !(formData.get(`Steps[${index}].StepContent`) === undefined)){
+            if(!formData.get(`Steps[${index}].StepContent`).trim() || (formData.get(`Steps[${index}].StepContent`) === undefined)){
                 validationErrors.step = "* Step is required."
             }else if(!/^[A-Za-z0-9\s_!-]+$/.test(formData.get(`Steps[${index}].StepContent`))){
                 validationErrors.step = "* Step content can only contains letters, numbers and '_', '-', '!'."
             }
         });
-        */
 
         setErrors(validationErrors);
         if(Object.keys(validationErrors).length === 0){

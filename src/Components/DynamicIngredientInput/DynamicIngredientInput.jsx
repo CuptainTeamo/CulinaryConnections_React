@@ -13,7 +13,7 @@ function DynamicIngredientInput({ ingredients, setIngredients }){
 
     function handleClick(event){
         event.preventDefault();
-        const newIngredients = [...ingredients, {ingredientName:"", quantity:"",unit:""}]
+        const newIngredients = [...ingredients, {Ingredient:"", Qty:"",Unit:""}]
         setIngredients(newIngredients);
     }
 
@@ -44,19 +44,19 @@ function DynamicIngredientInput({ ingredients, setIngredients }){
             <div key={index}>
                 <input 
                     value={ingredient? ingredient.Ingredient : ""} 
-                    onChange={e => handleChange(e, index, 'ingredientName')}
+                    onChange={e => handleChange(e, index, 'Ingredient')}
                     placeholder="Ingredient Name" 
                 />
                 <input 
                     className="quantityBox" 
                     value={ingredient? ingredient.Qty : ""} 
-                    onChange={e => handleChange(e, index, 'quantity')}
+                    onChange={e => handleChange(e, index, 'Qty')}
                     placeholder="Quantity"
                 />
                 <select 
                     className="unitBox" 
                     value={ingredient? ingredient.Unit : ""}
-                    onChange={e => handleChange(e, index, 'unit')}
+                    onChange={e => handleChange(e, index, 'Unit')}
                 >
                     <option value="">--Please choose an unit--</option>
                     <option value="Table_Spoon">Table Spoon</option>

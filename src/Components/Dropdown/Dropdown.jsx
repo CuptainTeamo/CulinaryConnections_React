@@ -1,7 +1,7 @@
 import "./Dropdown.css";
 import { useState, useEffect, useRef } from "react";
 
-const Dropdown =({books, setBookId}) =>{
+const Dropdown =({books, bookId, setBookId}) =>{
     const [dropdownToggled, setDropdownToggled] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
     const dropdownRef = useRef(null);
@@ -21,6 +21,13 @@ const Dropdown =({books, setBookId}) =>{
             document.removeEventListener('click', handler);
         }
     })
+
+    useEffect(() => {
+        if (books && bookId) {
+            const book = books.find(b => b.bookId === bookId);
+            setSelectedBook(book);
+        }
+    }, [books, bookId]);
 
     return(
         <div className="dropdown" ref={dropdownRef}>
