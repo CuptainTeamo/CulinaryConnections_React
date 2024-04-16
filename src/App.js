@@ -10,6 +10,7 @@ import SignupPage from './Pages/SignupPage';
 import CreateCookbookPage from './Pages/CreateCookbookPage';
 import CookbookProfile from './Components/CookbookProfile/CookbookProfile';
 import HomePage from './Components/HomePage/HomePage';
+import LoginPage from './Pages/LoginPage';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
       <Routes>
       <Route path='/' element={<HomePage />}/>
       <Route path='/Signup' element={<SignupPage />}/>
+      <Route path='/Login' element={<LoginPage />}/>
       <Route path='/CreateCookbook' element={<CreateCookbookPage />}/>
       <Route path="/Book" element={<RecipeInBook />} />
       <Route path="/AddRecipe" element={<AddRecipe />} />
@@ -26,6 +28,7 @@ function App() {
       <Route path="/CookbookProfile" element={<CookbookProfile />} />
 
       <Route path="/RecipeDetail/:id" element={<RecipeDetailPage />} />
+      
     </Routes>
     </div>
   );
