@@ -1,5 +1,6 @@
 import axios from "axios";
 import IRecipeSearchService from "./IRecipeSearchService";
+import urls from "../Data/URL";
 import { RecipeIngredientsSearchDTO, RecipeSearchDTO } from "../Models/SearchingDTO/IngredientsSearchTypes";
 
 const ingredients1: RecipeIngredientsSearchDTO = {
@@ -33,7 +34,7 @@ class RecipeSearchManager implements IRecipeSearchService{
     async searchRecipeByRating(selectedRating: number): Promise<RecipeSearchDTO[]> {
         try{
             const ratingVal = selectedRating;
-            const respone = await axios.get(`https://localhost:7155/api/Searching/GetAllRecipesByRating/rating?rating=${ratingVal}`);
+            const respone = await axios.get(`${urls.searching.GetByRating}${ratingVal}`);
             if(respone.status == 200){
                 return respone.data
             }
@@ -51,7 +52,7 @@ class RecipeSearchManager implements IRecipeSearchService{
         
         try{
             const ingredientsIDs = selectedIngredients.map(id => `IngredientsIDs=${id}`).join('&');
-            const respone = await axios.get(`https://localhost:7155/api/Searching/GetAllRecipesByIngredients/ingredients?${ingredientsIDs}`);
+            const respone = await axios.get(`${urls.searching.GetByIngredient}${ingredientsIDs}`);
 
             if(respone.status == 200){
                 return respone.data;
