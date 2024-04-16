@@ -95,7 +95,11 @@ function RecipeDetail(props){
 
         const formData = new FormData();
         formData.append("Id", id.toString());
-        formData.append('OwnerId', ownerId.toString());
+        if(ownerId === 0){
+            formData.append('OwnerId', "039c682c-6099-4fa4-af56-4e389b20f19d");
+        }else{
+            formData.append('OwnerId', ownerId.toString());
+        }
         formData.append('GroupId', groupId.toString());
         formData.append('Name', dishName);
         if(rating != null){

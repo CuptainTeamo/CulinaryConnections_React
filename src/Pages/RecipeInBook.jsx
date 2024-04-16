@@ -72,6 +72,7 @@ function RecipeInBook(){
             <h1>Recipes</h1>
             <Dropdown 
                 books = {books}
+                bookId = {bookId}
                 setBookId = {setBookId}
             />
             {recipes && recipes.length > 0 ? recipes.map(createDishCards) : <p>No Recipes found</p>}
