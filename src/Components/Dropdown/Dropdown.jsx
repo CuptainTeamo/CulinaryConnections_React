@@ -1,7 +1,7 @@
 import "./Dropdown.css";
 import { useState, useEffect, useRef } from "react";
 
-const Dropdown =() =>{
+const Dropdown =({books, setBookId}) =>{
     const [dropdownToggled, setDropdownToggled] = useState(false);
     const [selectedBook, setSelectedBook] = useState(null);
     const dropdownRef = useRef(null);
@@ -22,7 +22,7 @@ const Dropdown =() =>{
         }
     })
 
-    const books = [
+    const booksTest = [
         {
             id: 1,
             label: "Family A",
@@ -44,6 +44,7 @@ const Dropdown =() =>{
             value: "FriendsGroupB",
         },
     ];
+
     return(
         <div className="dropdown" ref={dropdownRef}>
             <button className="toggle" onClick={() => {
@@ -55,14 +56,15 @@ const Dropdown =() =>{
                 <span>{dropdownToggled ? '-' : '+'}</span>
             </button>
             <div className={`options ${dropdownToggled ? 'visible': ''}`}>
-                {books.map((book, index) => {
+                {books && books.map((book, index) => {
                     return (
-                        <button className={`${selectedBook?.id === book.id ? "selected" : ""}`}
+                        <button className={`${selectedBook?.id === book.bookId ? "selected" : ""}`}
                             onClick={() => {
                                 setSelectedBook(book);
                                 setDropdownToggled(false);
+                                setBookId(book.bookId);
                             }}>
-                                {book.label}
+                                {book.bookTitle}
                         </button>
                     )
                 })}
