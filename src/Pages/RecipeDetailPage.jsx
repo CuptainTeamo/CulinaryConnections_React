@@ -6,13 +6,14 @@ import urls from "../Data/URL";
 import { useParams } from "react-router-dom";
 
 function RecipeDetailPage(){
+    const [bookId, setBookId] = useState();
     const [recipe, setRecipe] = useState(null);
     const {id} = useParams();
 
     useEffect(() => {
         const fetchRecipe = async () =>{
             try{
-                const recipeId = id? id: 8;
+                const recipeId = id? id: 1;
                 const url = `${urls.recipe.GetByID}id?id=${recipeId}`;
                 const response = await fetch(url);
 
@@ -21,6 +22,7 @@ function RecipeDetailPage(){
                 }
 
                 const data = await response.json();
+                setBookId(data.GroupId);
                 setRecipe(data);
                 // console.log(data);
             }catch (error) {
@@ -33,7 +35,10 @@ function RecipeDetailPage(){
     return(
         <div className="body">
             <h1>Recipe Detail</h1>
-            <Dropdown />
+            <Dropdown 
+                bookId = {bookId} 
+                setBookId = {setBookId}
+            />
             <RecipeDetail recipe={recipe}/>
         </div>
     );
