@@ -8,7 +8,8 @@ const urls = {
         DeleteById: API_URL + '/Recipe/DeleteRecipeByID'
     },
     searching:{
-
+        GetByIngredient: API_URL + '/Searching/GetAllRecipesByIngredients/ingredients?',
+        GetByRating: API_URL + '/Searching/GetAllRecipesByRating/rating?rating='
     }
 };
 
