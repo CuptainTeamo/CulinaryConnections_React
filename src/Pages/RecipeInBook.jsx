@@ -18,6 +18,7 @@ function createDishCards(dishItem){
 function RecipeInBook(){
     const [bookId, setBookId] = useState(null);
     const [books, setBooks] = useState(null);
+    const [data, setData] = useState(null);
     // fetch data from server
     const [recipes, setRecipes] = useState(null);
 
@@ -31,46 +32,37 @@ function RecipeInBook(){
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             const data = await response.json();
-            console.log(data);
+            setData(data);
 
             // set the books
-            data.Books && setBooks(data.Books.map(singleBook => ({
-                bookId : singleBook.Id,
-                bookTitle: singleBook.Title
-            })))
-            
-            if(data.books){
-                // const recipefromdata;
+            if(data.Books){
+                if(!bookId){
+                    setBookId(data.Books[0].Id);
+                }
+                setBooks(data.Books.map(singleBook => ({
+                    bookId : singleBook.Id,
+                    bookTitle: singleBook.Title
+                })));
 
-            }
-        }
-
-        const fetchRecipe = async () =>{
-            try{
-                const groupId = 2;
-                const url = `${urls.recipe.GetByGroupID}${groupId}`;
-                const response = await fetch(url);
-
-                // console.log(response);
-                if(!response.ok){
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                const selectedBook = data.Books.find(book => bookId === bookId);
+                if(selectedBook){
+                    setRecipes(selectedBook.Recipes);
                 }
 
-                const data = await response.json();
-                setRecipes(data);
-                // console.log(data);
-            }catch (error) {
-                console.error('Error fetching data: ', error);
+                // setRecipeData(data);
             }
-        };
-
+        }
         fetchBooks();
-        fetchRecipe();
     }, []);
 
     useEffect(()=>{
-        console.log(books);
-    }, [books]);
+        if(books && bookId){
+            const selectedBook = data.Books.find(book => book.Id == bookId);
+                if(selectedBook){
+                    setRecipes(selectedBook.Recipes);
+                }
+        }
+    }, [books, bookId]);
 
     // map the data
     return(
