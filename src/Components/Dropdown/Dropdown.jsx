@@ -22,43 +22,20 @@ const Dropdown =({books, setBookId}) =>{
         }
     })
 
-    const booksTest = [
-        {
-            id: 1,
-            label: "Family A",
-            value: "FamilyA",
-        },
-        {
-            id: 2,
-            label: "Family B",
-            value: "FamilyB",
-        },
-        {
-            id: 3,
-            label: "Friends Group A",
-            value: "FriendsGroupA",
-        },
-        {
-            id: 4,
-            label: "Friends Group B",
-            value: "FriendsGroupB",
-        },
-    ];
-
     return(
         <div className="dropdown" ref={dropdownRef}>
             <button className="toggle" onClick={() => {
                 setDropdownToggled(!dropdownToggled);
             }}>
                 <span>
-                    {selectedBook ? selectedBook.label : "Select A Book"}
+                    {selectedBook ? selectedBook.bookTitle : "Select A Book"}
                 </span>
                 <span>{dropdownToggled ? '-' : '+'}</span>
             </button>
             <div className={`options ${dropdownToggled ? 'visible': ''}`}>
                 {books && books.map((book, index) => {
                     return (
-                        <button className={`${selectedBook?.id === book.bookId ? "selected" : ""}`}
+                        <button className={`${selectedBook?.bookId === book.bookId ? "selected" : ""}`}
                             onClick={() => {
                                 setSelectedBook(book);
                                 setDropdownToggled(false);
